@@ -31,19 +31,19 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mCommunication = new System.Windows.Forms.ToolStripMenuItem();
             this.mcListenerClient = new System.Windows.Forms.ToolStripMenuItem();
-            this.mcUDP = new System.Windows.Forms.ToolStripMenuItem();
-            this.mcSocket = new System.Windows.Forms.ToolStripMenuItem();
-            this.mUtilitaire = new System.Windows.Forms.ToolStripMenuItem();
-            this.mQuitter = new System.Windows.Forms.ToolStripMenuItem();
             this.mcListenerClient_Ecouter = new System.Windows.Forms.ToolStripMenuItem();
             this.mcListenerClient_Connecter = new System.Windows.Forms.ToolStripMenuItem();
+            this.mcUDP = new System.Windows.Forms.ToolStripMenuItem();
+            this.mcUDP_Ecouter = new System.Windows.Forms.ToolStripMenuItem();
+            this.mcUDP_Connecter = new System.Windows.Forms.ToolStripMenuItem();
+            this.mcSocket = new System.Windows.Forms.ToolStripMenuItem();
             this.mcSocket_Ecouter = new System.Windows.Forms.ToolStripMenuItem();
             this.mcSocket_Connecter = new System.Windows.Forms.ToolStripMenuItem();
             this.mcSocket_Deconnecter = new System.Windows.Forms.ToolStripMenuItem();
+            this.mUtilitaire = new System.Windows.Forms.ToolStripMenuItem();
             this.muVerifier = new System.Windows.Forms.ToolStripMenuItem();
+            this.mQuitter = new System.Windows.Forms.ToolStripMenuItem();
             this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mcUDP_Ecouter = new System.Windows.Forms.ToolStripMenuItem();
-            this.mcUDP_Connecter = new System.Windows.Forms.ToolStripMenuItem();
             this.lServeur = new System.Windows.Forms.Label();
             this.tServeur = new System.Windows.Forms.TextBox();
             this.tMessage = new System.Windows.Forms.TextBox();
@@ -87,41 +87,6 @@
             this.mcListenerClient.Size = new System.Drawing.Size(270, 34);
             this.mcListenerClient.Text = "Listener / Client";
             // 
-            // mcUDP
-            // 
-            this.mcUDP.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mcUDP_Ecouter,
-            this.mcUDP_Connecter});
-            this.mcUDP.Name = "mcUDP";
-            this.mcUDP.Size = new System.Drawing.Size(270, 34);
-            this.mcUDP.Text = "UDP";
-            // 
-            // mcSocket
-            // 
-            this.mcSocket.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mcSocket_Ecouter,
-            this.mcSocket_Connecter,
-            this.mcSocket_Deconnecter});
-            this.mcSocket.Name = "mcSocket";
-            this.mcSocket.Size = new System.Drawing.Size(270, 34);
-            this.mcSocket.Text = "Socket";
-            // 
-            // mUtilitaire
-            // 
-            this.mUtilitaire.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.muVerifier});
-            this.mUtilitaire.Name = "mUtilitaire";
-            this.mUtilitaire.Size = new System.Drawing.Size(92, 29);
-            this.mUtilitaire.Text = "Utilitaire";
-            // 
-            // mQuitter
-            // 
-            this.mQuitter.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.quitterToolStripMenuItem});
-            this.mQuitter.Name = "mQuitter";
-            this.mQuitter.Size = new System.Drawing.Size(83, 29);
-            this.mQuitter.Text = "Quitter";
-            // 
             // mcListenerClient_Ecouter
             // 
             this.mcListenerClient_Ecouter.Name = "mcListenerClient_Ecouter";
@@ -136,50 +101,87 @@
             this.mcListenerClient_Connecter.Text = "Connecter";
             this.mcListenerClient_Connecter.Click += new System.EventHandler(this.mcListenerClient_Connecter_Click);
             // 
-            // mcSocket_Ecouter
+            // mcUDP
             // 
-            this.mcSocket_Ecouter.Name = "mcSocket_Ecouter";
-            this.mcSocket_Ecouter.Size = new System.Drawing.Size(270, 34);
-            this.mcSocket_Ecouter.Text = "Ecouter";
-            // 
-            // mcSocket_Connecter
-            // 
-            this.mcSocket_Connecter.Name = "mcSocket_Connecter";
-            this.mcSocket_Connecter.Size = new System.Drawing.Size(270, 34);
-            this.mcSocket_Connecter.Text = "Connecter";
-            // 
-            // mcSocket_Deconnecter
-            // 
-            this.mcSocket_Deconnecter.Enabled = false;
-            this.mcSocket_Deconnecter.Name = "mcSocket_Deconnecter";
-            this.mcSocket_Deconnecter.Size = new System.Drawing.Size(270, 34);
-            this.mcSocket_Deconnecter.Text = "Déconnecter";
-            // 
-            // muVerifier
-            // 
-            this.muVerifier.Name = "muVerifier";
-            this.muVerifier.Size = new System.Drawing.Size(270, 34);
-            this.muVerifier.Text = "Vérifier";
-            this.muVerifier.Click += new System.EventHandler(this.muVerifier_Click);
-            // 
-            // quitterToolStripMenuItem
-            // 
-            this.quitterToolStripMenuItem.Name = "quitterToolStripMenuItem";
-            this.quitterToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.quitterToolStripMenuItem.Text = "Quitter";
-            this.quitterToolStripMenuItem.Click += new System.EventHandler(this.quitterToolStripMenuItem_Click);
+            this.mcUDP.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mcUDP_Ecouter,
+            this.mcUDP_Connecter});
+            this.mcUDP.Name = "mcUDP";
+            this.mcUDP.Size = new System.Drawing.Size(270, 34);
+            this.mcUDP.Text = "UDP";
             // 
             // mcUDP_Ecouter
             // 
             this.mcUDP_Ecouter.Name = "mcUDP_Ecouter";
             this.mcUDP_Ecouter.Size = new System.Drawing.Size(270, 34);
             this.mcUDP_Ecouter.Text = "Ecouter";
+            this.mcUDP_Ecouter.Click += new System.EventHandler(this.mcUDP_Ecouter_Click);
             // 
             // mcUDP_Connecter
             // 
             this.mcUDP_Connecter.Name = "mcUDP_Connecter";
             this.mcUDP_Connecter.Size = new System.Drawing.Size(270, 34);
             this.mcUDP_Connecter.Text = "Connecter";
+            this.mcUDP_Connecter.Click += new System.EventHandler(this.mcUDP_Connecter_Click);
+            // 
+            // mcSocket
+            // 
+            this.mcSocket.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mcSocket_Ecouter,
+            this.mcSocket_Connecter,
+            this.mcSocket_Deconnecter});
+            this.mcSocket.Name = "mcSocket";
+            this.mcSocket.Size = new System.Drawing.Size(270, 34);
+            this.mcSocket.Text = "Socket";
+            // 
+            // mcSocket_Ecouter
+            // 
+            this.mcSocket_Ecouter.Name = "mcSocket_Ecouter";
+            this.mcSocket_Ecouter.Size = new System.Drawing.Size(213, 34);
+            this.mcSocket_Ecouter.Text = "Ecouter";
+            // 
+            // mcSocket_Connecter
+            // 
+            this.mcSocket_Connecter.Name = "mcSocket_Connecter";
+            this.mcSocket_Connecter.Size = new System.Drawing.Size(213, 34);
+            this.mcSocket_Connecter.Text = "Connecter";
+            // 
+            // mcSocket_Deconnecter
+            // 
+            this.mcSocket_Deconnecter.Enabled = false;
+            this.mcSocket_Deconnecter.Name = "mcSocket_Deconnecter";
+            this.mcSocket_Deconnecter.Size = new System.Drawing.Size(213, 34);
+            this.mcSocket_Deconnecter.Text = "Déconnecter";
+            // 
+            // mUtilitaire
+            // 
+            this.mUtilitaire.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.muVerifier});
+            this.mUtilitaire.Name = "mUtilitaire";
+            this.mUtilitaire.Size = new System.Drawing.Size(92, 29);
+            this.mUtilitaire.Text = "Utilitaire";
+            // 
+            // muVerifier
+            // 
+            this.muVerifier.Name = "muVerifier";
+            this.muVerifier.Size = new System.Drawing.Size(168, 34);
+            this.muVerifier.Text = "Vérifier";
+            this.muVerifier.Click += new System.EventHandler(this.muVerifier_Click);
+            // 
+            // mQuitter
+            // 
+            this.mQuitter.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.quitterToolStripMenuItem});
+            this.mQuitter.Name = "mQuitter";
+            this.mQuitter.Size = new System.Drawing.Size(83, 29);
+            this.mQuitter.Text = "Quitter";
+            // 
+            // quitterToolStripMenuItem
+            // 
+            this.quitterToolStripMenuItem.Name = "quitterToolStripMenuItem";
+            this.quitterToolStripMenuItem.Size = new System.Drawing.Size(169, 34);
+            this.quitterToolStripMenuItem.Text = "Quitter";
+            this.quitterToolStripMenuItem.Click += new System.EventHandler(this.quitterToolStripMenuItem_Click);
             // 
             // lServeur
             // 
@@ -222,6 +224,7 @@
             this.btnEnvoyer.TabIndex = 5;
             this.btnEnvoyer.Text = "Envoyer";
             this.btnEnvoyer.UseVisualStyleBackColor = true;
+            this.btnEnvoyer.Click += new System.EventHandler(this.btnEnvoyer_Click);
             // 
             // lEchanges
             // 
@@ -236,7 +239,7 @@
             // 
             this.lbEchanges.FormattingEnabled = true;
             this.lbEchanges.ItemHeight = 20;
-            this.lbEchanges.Location = new System.Drawing.Point(16, 298);
+            this.lbEchanges.Location = new System.Drawing.Point(17, 310);
             this.lbEchanges.Name = "lbEchanges";
             this.lbEchanges.Size = new System.Drawing.Size(407, 244);
             this.lbEchanges.TabIndex = 7;
@@ -245,7 +248,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(436, 555);
+            this.ClientSize = new System.Drawing.Size(436, 617);
             this.Controls.Add(this.lbEchanges);
             this.Controls.Add(this.lEchanges);
             this.Controls.Add(this.btnEnvoyer);

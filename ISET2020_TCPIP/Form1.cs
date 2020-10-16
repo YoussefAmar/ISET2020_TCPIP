@@ -17,6 +17,7 @@ namespace ISET2020_TCPIP
 {
     public partial class EcranPrincipal : Form
     {
+
         public EcranPrincipal()
         {
             InitializeComponent();
@@ -42,7 +43,6 @@ namespace ISET2020_TCPIP
                             ipReponse = IPServeur[i];
                             break;
                         }
-
                 }
 
             }
@@ -95,6 +95,48 @@ namespace ISET2020_TCPIP
             lcServeur.Stop();
 
             mcListenerClient_Ecouter.Enabled = mcListenerClient_Connecter.Enabled = true;
+
+        }
+
+        private async Task EcouterUDP()
+        {
+            mcListenerClient_Ecouter.Enabled = mcListenerClient_Connecter.Enabled = false;
+            string Donnees;
+            byte[] tabOctets;
+            IPAddress IPLocal = Utilitaires.Verifier(tServeur.Text);
+            IPEndPoint IPEP = new IPEndPoint(IPLocal, 8000);
+            UdpClient MonServeur = new UdpClient(8000);
+            lbEchanges.Items.Add("UDP prêt à recevoir des données de " + IPEP.ToString());
+            tabOctets = MonServeur.Receive(ref IPEP); // Fonction bloquante
+            Donnees = Encoding.ASCII.GetString(tabOctets, 0, tabOctets.Length);
+            lbEchanges.Items.Add("Données reçues : ");
+            lbEchanges.Items.Add(Donnees);
+            lbEchanges.Items.Add("Fermeture serveur");
+            MonServeur.Close();
+            mcListenerClient_Ecouter.Enabled = mcListenerClient_Connecter.Enabled = true;
+        }
+
+        private async void mcUDP_Ecouter_Click(object sender, EventArgs e)
+        {
+            await EcouterUDP();
+
+        }
+
+        private void mcUDP_Connecter_Click(object sender, EventArgs e)
+        {
+            mcListenerClient_Connecter.Enabled = mcListenerClient_Ecouter.Enabled = false;
+            IPAddress IPServeur = Utilitaires.Verifier(tServeur.Text);
+            UdpClient MonClient = new UdpClient();
+            MonClient.Connect(IPServeur, 8000);
+            lbEchanges.Items.Add("Client connecté à " + IPServeur.ToString() + ":8000");
+            byte[] tabOctets = Encoding.ASCII.GetBytes(tMessage.Text);
+            MonClient.Send(tabOctets, tabOctets.Length);
+            lbEchanges.Items.Add("Message envoyé");
+            lbEchanges.Items.Add(tMessage.Text);
+            lbEchanges.Items.Add("fermeture de la connexion");
+            MonClient.Close();
+            mcListenerClient_Ecouter.Enabled = mcListenerClient_Connecter.Enabled = true;
+
         }
 
         private void mcListenerClient_Connecter_Click(object sender, EventArgs e)
@@ -113,7 +155,13 @@ namespace ISET2020_TCPIP
             bw.Write("Déconnexion effectuée");
             lcClient.Close();
 
-            mcListenerClient_Ecouter.Enabled = mcListenerClient_Connecter.Enabled = true;
         }
+
+        private void btnEnvoyer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
