@@ -90,14 +90,14 @@
             // mcListenerClient_Ecouter
             // 
             this.mcListenerClient_Ecouter.Name = "mcListenerClient_Ecouter";
-            this.mcListenerClient_Ecouter.Size = new System.Drawing.Size(270, 34);
+            this.mcListenerClient_Ecouter.Size = new System.Drawing.Size(194, 34);
             this.mcListenerClient_Ecouter.Text = "Ecouter";
             this.mcListenerClient_Ecouter.Click += new System.EventHandler(this.mcListenerClient_Ecouter_Click);
             // 
             // mcListenerClient_Connecter
             // 
             this.mcListenerClient_Connecter.Name = "mcListenerClient_Connecter";
-            this.mcListenerClient_Connecter.Size = new System.Drawing.Size(270, 34);
+            this.mcListenerClient_Connecter.Size = new System.Drawing.Size(194, 34);
             this.mcListenerClient_Connecter.Text = "Connecter";
             this.mcListenerClient_Connecter.Click += new System.EventHandler(this.mcListenerClient_Connecter_Click);
             // 
@@ -113,14 +113,14 @@
             // mcUDP_Ecouter
             // 
             this.mcUDP_Ecouter.Name = "mcUDP_Ecouter";
-            this.mcUDP_Ecouter.Size = new System.Drawing.Size(270, 34);
+            this.mcUDP_Ecouter.Size = new System.Drawing.Size(194, 34);
             this.mcUDP_Ecouter.Text = "Ecouter";
             this.mcUDP_Ecouter.Click += new System.EventHandler(this.mcUDP_Ecouter_Click);
             // 
             // mcUDP_Connecter
             // 
             this.mcUDP_Connecter.Name = "mcUDP_Connecter";
-            this.mcUDP_Connecter.Size = new System.Drawing.Size(270, 34);
+            this.mcUDP_Connecter.Size = new System.Drawing.Size(194, 34);
             this.mcUDP_Connecter.Text = "Connecter";
             this.mcUDP_Connecter.Click += new System.EventHandler(this.mcUDP_Connecter_Click);
             // 
@@ -137,21 +137,24 @@
             // mcSocket_Ecouter
             // 
             this.mcSocket_Ecouter.Name = "mcSocket_Ecouter";
-            this.mcSocket_Ecouter.Size = new System.Drawing.Size(213, 34);
+            this.mcSocket_Ecouter.Size = new System.Drawing.Size(270, 34);
             this.mcSocket_Ecouter.Text = "Ecouter";
+            this.mcSocket_Ecouter.Click += new System.EventHandler(this.mcSocket_Ecouter_Click);
             // 
             // mcSocket_Connecter
             // 
             this.mcSocket_Connecter.Name = "mcSocket_Connecter";
-            this.mcSocket_Connecter.Size = new System.Drawing.Size(213, 34);
+            this.mcSocket_Connecter.Size = new System.Drawing.Size(270, 34);
             this.mcSocket_Connecter.Text = "Connecter";
+            this.mcSocket_Connecter.Click += new System.EventHandler(this.mcSocket_Connecter_Click);
             // 
             // mcSocket_Deconnecter
             // 
             this.mcSocket_Deconnecter.Enabled = false;
             this.mcSocket_Deconnecter.Name = "mcSocket_Deconnecter";
-            this.mcSocket_Deconnecter.Size = new System.Drawing.Size(213, 34);
+            this.mcSocket_Deconnecter.Size = new System.Drawing.Size(270, 34);
             this.mcSocket_Deconnecter.Text = "Déconnecter";
+            this.mcSocket_Deconnecter.Click += new System.EventHandler(this.mcSocket_Deconnecter_Click);
             // 
             // mUtilitaire
             // 

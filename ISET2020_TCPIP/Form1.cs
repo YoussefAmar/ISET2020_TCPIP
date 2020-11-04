@@ -18,6 +18,35 @@ namespace ISET2020_TCPIP
     public partial class EcranPrincipal : Form
     {
 
+        #region Mode Debug
+
+        delegate void RenvoiVersInserer(string sTexte);
+        private void InsererItemThread(string sTexte)
+        {
+            Thread ThreadInsererItem = new Thread(new ParameterizedThreadStart(InsererItem));
+            ThreadInsererItem.Start(sTexte);
+        }
+
+        private void InsererItem(object oTexte)
+        {
+            if (lbEchanges.InvokeRequired)
+            {
+                RenvoiVersInserer f = new RenvoiVersInserer(InsererItem);
+                Invoke(f, new object[] { (string) oTexte });
+            }
+            else
+            {
+                lbEchanges.Items.Insert(0, (string)oTexte);
+            }
+
+        }
+
+        #endregion
+
+        private Socket MonServeur, MonClient;
+        private int DrapeauSocket = 0; //1 pour serveur tcp (socket) et 2 pour le client tcp
+        private byte[] MonBuffer = new byte[256];
+
         public EcranPrincipal()
         {
             InitializeComponent();
@@ -159,9 +188,127 @@ namespace ISET2020_TCPIP
 
         private void btnEnvoyer_Click(object sender, EventArgs e)
         {
-
+            MonClient.Send(Encoding.Unicode.GetBytes(tMessage.Text));
         }
 
+        private void mcSocket_Ecouter_Click(object sender, EventArgs e)
+        {
+            mcSocket_Ecouter.Enabled = mcSocket_Connecter.Enabled = false;
+            mcSocket_Deconnecter.Enabled = true;
+            DrapeauSocket = 1;
+            MonClient = null;
+            IPAddress IPServeur = AdresseValide(Dns.GetHostName());
+            MonServeur = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            MonServeur.Bind(new IPEndPoint(IPServeur, 8000));
+            MonServeur.Listen(1);
+            MonServeur.BeginAccept(new AsyncCallback(SurDemandeConnexion), MonServeur);
+        }
+
+        public void SurDemandeConnexion(IAsyncResult iar)
+        {
+            if (DrapeauSocket == 1)
+            {
+              Socket tmp = (Socket)iar.AsyncState;
+              MonClient = tmp.EndAccept(iar);
+              MonClient.Send(Encoding.Unicode.GetBytes("Connexion acceptée"));
+              InsererItemThread("Connexion effectuée par " + ((IPEndPoint)MonClient.RemoteEndPoint).Address.ToString());
+                //lbEchanges.Items.Insert(0, "Connexion effectuée par " +((IPEndPoint) MonClient.RemoteEndPoint).Address.ToString());
+                InitialiserReception(MonClient);
+            }
+        }
+
+        public void InitialiserReception(Socket soc)
+        {
+            soc.BeginReceive(MonBuffer, 0, MonBuffer.Length, SocketFlags.None, new AsyncCallback(Reception), soc);
+            Array.Clear(MonBuffer, 0, MonBuffer.Length);
+        }
+
+        private void mcSocket_Connecter_Click(object sender, EventArgs e)
+        {
+            if (tServeur.Text.Length > 0)
+            {
+                mcSocket_Ecouter.Enabled = mcSocket_Connecter.Enabled = false;
+                mcSocket_Deconnecter.Enabled = true;
+                DrapeauSocket = 2;
+                MonClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                MonClient.Blocking = false;
+                IPAddress IPserveur = AdresseValide(tServeur.Text);
+                MonClient.BeginConnect(new IPEndPoint(IPserveur, 8000), new AsyncCallback(SurConnexion), MonClient);
+            }
+            else
+            {
+                MessageBox.Show("Renseigner le serveur");
+            }
+        }
+
+        public void SurConnexion(IAsyncResult iar)
+        {
+            Socket tmp = (Socket)iar.AsyncState;
+
+            if (tmp.Connected)
+            {
+                InitialiserReception(tmp);
+            }
+            else
+            {
+                MessageBox.Show("Serveur inaccessible");
+            }
+        }
+
+        private void mcSocket_Deconnecter_Click(object sender, EventArgs e)
+        {
+            if (DrapeauSocket == 2)
+            {
+                MonClient.Send(Encoding.Unicode.GetBytes("Déconnexion (client)"));
+                MonClient.Shutdown(SocketShutdown.Both);
+                DrapeauSocket = 0;
+                MonClient.BeginDisconnect(false, new AsyncCallback(DemandeConnexion), MonClient);
+                mcSocket_Ecouter.Enabled = mcSocket_Connecter.Enabled = true;
+                mcSocket_Deconnecter.Enabled = false;
+            }
+            else if(MonClient == null)
+            {
+                MonServeur.Close();
+                DrapeauSocket = 0;
+                mcSocket_Ecouter.Enabled = mcSocket_Connecter.Enabled = true;
+                mcSocket_Deconnecter.Enabled = false;
+            }
+            else
+            {
+                MessageBox.Show("Client connecté = pas de déconnexion");
+            }
+        }
+
+        public void DemandeConnexion(IAsyncResult iar)
+        {
+            Socket tmp = (Socket) iar.AsyncState;
+            tmp.EndDisconnect(iar);
+        }
+
+        public void Reception(IAsyncResult iar)
+        {
+            if (DrapeauSocket > 0)
+            {
+                Socket tmp = (Socket) iar.AsyncState;
+                int recu = tmp.EndReceive(iar);
+
+                if (recu > 0)
+                {
+                    InsererItemThread(Encoding.Unicode.GetString(MonBuffer));
+                    //lbEchanges.Items.Insert(0, Encoding.Unicode.GetString(MonBuffer));
+                    InitialiserReception(tmp);
+
+                    Array.Clear(MonBuffer, 0, MonBuffer.Length);
+                }
+                else
+                {
+                    tmp.Disconnect(true);
+                    tmp.Close();
+                    MonServeur.BeginAccept(new AsyncCallback(SurDemandeConnexion), MonServeur);
+                    MonClient = null;
+                }
+            }
+        }
 
     }
 }
